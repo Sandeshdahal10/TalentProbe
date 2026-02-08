@@ -22,6 +22,8 @@ import analyticsImg from "../assets/history.png";
 import hrImg from "../assets/HR.png";
 import Footer from "../components/Footer";
 
+// while clicking in outer window the every button or opening div should be closed.
+
 export default function Home() {
   const { userData } = useSelector((state) => state.user);
   const [showAuth, setShowAuth] = useState(false);
@@ -75,6 +77,8 @@ export default function Home() {
                 className="bg-black text-white px-10 py-3 rounded-full hover:opacity-90 transition shadow-md"
               >
                 Start Mock Interview
+
+                {/* //navigate to prcing page if credits of the user is over */}
               </motion.button>
 
               <motion.button
