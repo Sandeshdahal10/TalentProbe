@@ -2,6 +2,9 @@ import React from "react";
 import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
+import {loadStripe} from "@stripe/stripe-js";
+import axios from "axios";
+import { ServerUrl } from "../App";
 
 function Pricing() {
   const navigate = useNavigate();
@@ -52,6 +55,34 @@ function Pricing() {
       badge: "Most Popular",
     },
   ];
+
+ const makePayment = async () => {
+  const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
+  try {
+    const response = await axios.post(
+      ServerUrl + "/create-checkout-session",
+      { planId: selectedPlan },           // body goes here directly
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+
+    const session = response.data;        // get session from response.data
+
+    // Redirect to Stripe Checkout
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+    }
+  } catch (error) {
+    console.error("Payment error:", error);
+  }
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-emerald-5 py-16 px-6">
       <div className="max-w-6xl mx-auto mb-14 flex items-start gap-4">
@@ -129,6 +160,7 @@ function Pricing() {
               </div>
               {!plan.default && (
                 <button
+                onClick={makePayment}
                   className={`w-full mt-8 py-3 rounded-xl font-semibold transition
                   ${
                     isSelected
