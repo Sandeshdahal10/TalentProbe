@@ -7,7 +7,7 @@ export const analyseResume = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "Resume file is required." });
     }
-    const filepath = req.file.filepath;
+    const filepath = req.file.path;
     const filebuffer = await fs.promises.readFile(filepath);
     const uint8Array = new Uint8Array(filebuffer);
     const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise;
@@ -40,8 +40,19 @@ export const analyseResume = async (req, res) => {
       },
     ];
     const aiResponse = await askAi(messages);
-    const parsed = JSON.parse(aiResponse);
-    fs.unlink(filepath);
+    let cleanResponse = aiResponse.trim();
+
+    if (cleanResponse.startsWith("```")) {
+      cleanResponse = cleanResponse
+        .replace(/```json/g, "")
+        .replace(/```/g, "")
+        .trim();
+    }
+
+    const parsed = JSON.parse(cleanResponse);
+
+   
+    await fs.promises.unlink(filepath);
     res.json({
       role: parsed.role,
       experience: parsed.experience,
