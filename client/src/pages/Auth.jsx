@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaRobot } from "react-icons/fa";
+import { IoSparklesSharp } from "react-icons/io5";
 function Auth() {
   return (
     <div className='w-full min-h-screen bg-[#f3f3f3] flex items-center justify-center px-6 py-20'>
@@ -10,6 +11,16 @@ function Auth() {
               </div>
               <h2 className='font-semibold text-lg'>InterviewIQ.AI</h2>
             </div>
+            <h1 className='text-2xl md:text-3xl font-semibold text-center leading-snug mb-4'>
+              Continue with {" "}
+              <span className='bg-green-100 text-green-600 px-3 py-1 rounded-full inline-flex items-center gap-2'>
+                <IoSparklesSharp size={16}/>
+                AI Smart Interview
+              </span>
+            </h1>
+            <p className='text-gray-500 text-center text-sm md:text-base leading-relaxed mb-8'>
+              Sign in to your account to continue and experience the power of AI-driven interviews. 
+            </p>
         </div>
     </div>
   )
