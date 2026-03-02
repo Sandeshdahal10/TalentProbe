@@ -5,7 +5,7 @@ import Auth from './pages/Auth.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
 
-export const ServerUrl = "https://talentprobe.onrender.com"
+export const ServerUrl = "http://localhost:8000";
 function App() {
   useEffect(()=> {
     const getUser = async () => {
