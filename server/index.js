@@ -9,23 +9,19 @@ import userRouter from "./routes/user.route.js";
 dotenv.config();
 
 const app = express();
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://talent-probe-bice.vercel.app"
-]
+app.use(cors({
+  origin:"http://localhost:5173",
+  credentials:true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 
 const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port http://localhost:${PORT}`);
   connectDb();
 });
