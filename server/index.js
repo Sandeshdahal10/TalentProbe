@@ -9,13 +9,17 @@ import userRouter from "./routes/user.route.js";
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin:"http://localhost:5173",
-  credentials:true
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://talent-probe-bice.vercel.app"
+]
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
