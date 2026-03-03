@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import {
   BsRobot,
   BsMic,
