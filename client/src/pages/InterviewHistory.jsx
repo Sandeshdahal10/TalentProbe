@@ -79,7 +79,7 @@ function InterviewHistory() {
                         </div>
 
                         {/* Status Badge */}
-                        <span className={`px-4 py-1 rounded-full text-xs font-medium ${item.status === "completed"
+                        <span className={`px-4 py-1 rounded-full text-xs font-medium ${item.status === "Completed"
                             ? "bg-emerald-100 text-emerald-700"
                             : "bg-yellow-100 text-yellow-700"
                         }`}>
