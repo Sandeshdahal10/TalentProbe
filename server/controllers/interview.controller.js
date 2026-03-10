@@ -179,7 +179,7 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
       questions: questionsArray.map((q, index) => ({
         question: q,
         difficulty: ["easy", "easy", "medium", "medium", "hard"][index],
-        timelimit: [60, 60, 90, 90, 120][index],
+        timeLimit: [60, 60, 90, 90, 120][index],
       })),
     });
 
@@ -211,7 +211,7 @@ export const submitAnswer = async (req, res) => {
       await interview.save();
       return res.json({ feedback: question.feedback });
     }
-    if (timeTaken > question.timelimit) {
+    if (timeTaken > question.timeLimit) {
       question.score = 0;
       question.feedback = "Your answer exceeded the time limit of seconds.";
       question.answer = answer;
@@ -322,7 +322,7 @@ export const finishInterview = async (req, res) => {
       : 0;
 
     interview.finalScore = finalScore;
-    interview.status = "completed";
+    interview.status = "Completed";
     await interview.save();
 
     return res.status(200).json({
