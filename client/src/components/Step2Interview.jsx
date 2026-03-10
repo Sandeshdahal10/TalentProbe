@@ -22,7 +22,7 @@ import { BsArrowRight } from "react-icons/bs";
 
 
 function Step2Interview({ interviewData, onFinish }) {
-  const { interviewId, questions, username } = interviewData;
+  const { interviewId, questions, userName } = interviewData;
 
   const [isIntroPhase, setIsIntroPhase] = useState(true);
   const [isMicOn, setIsMicOn] = useState(true);
@@ -132,7 +132,7 @@ function Step2Interview({ interviewData, onFinish }) {
     const runIntro = async () => {
       if (isIntroPhase) {
         await speakText(
-          `Hello ${interviewData.username}, welcome to your AI interview. I will be asking you a series of questions related to the role you applied for. Please answer them to the best of your ability. Let's get started!`,
+          `Hello ${userName}, welcome to your AI interview. I will be asking you a series of questions related to the role you applied for. Please answer them to the best of your ability. Let's get started!`,
         );
         setIsIntroPhase(false);
       } else if (currentQuestion) {
@@ -141,7 +141,7 @@ function Step2Interview({ interviewData, onFinish }) {
         //If last question (hard level)
         if (currentIndex === questions.length - 1) {
           await speakText(
-            `This is the final question. ${currentQuestion.question} You have ${currentQuestion.timelimit} seconds to answer. Good luck!`,
+            `This is the final question. ${currentQuestion.question} You have ${currentQuestion.timeLimit} seconds to answer. Good luck!`,
           );
         }
         await speakText(currentQuestion.question);
@@ -156,7 +156,8 @@ function Step2Interview({ interviewData, onFinish }) {
   useEffect(() => {
     if (isIntroPhase) return;
     if (!currentQuestion) return;
-    if (isSubmitting) return;
+   
+    if (isAiPlaying) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -168,7 +169,14 @@ function Step2Interview({ interviewData, onFinish }) {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [isIntroPhase, currentIndex, isSubmitting]);
+  }, [isIntroPhase, currentIndex,  isAiPlaying]);
+
+  useEffect(()=>{
+    if (!isIntroPhase && currentQuestion) {
+      setTimeLeft(currentQuestion.timeLimit || 60);
+      setIsSubmitting(false);
+    }
+  },[currentIndex]);
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window)) return;
