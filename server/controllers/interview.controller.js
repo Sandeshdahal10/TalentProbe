@@ -149,7 +149,6 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
 
     const aiResponse = await askAi(messages);
     if (!aiResponse || !aiResponse.trim()) {
-      
       return res
         .status(500)
         .json({ message: "AI failed to generate questions, please try again" });
@@ -161,7 +160,6 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
       .filter((q) => q.length > 0)
       .slice(0, 5);
     if (questionsArray.length === 0) {
-      
       return res
         .status(500)
         .json({ message: "AI returned no valid questions, please try again" });
@@ -190,7 +188,6 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
       questions: interview.questions,
     });
   } catch (error) {
-   
     return res
       .status(500)
       .json({ message: `Failed to start interview: ${error.message}` });
@@ -345,3 +342,20 @@ export const finishInterview = async (req, res) => {
       .json({ message: `Failed to finish interview: ${error.message}` });
   }
 };
+
+export const getMyInterviews = async (req, res) => {
+  try {
+    const interviews = await Interview.findOne({ userId: req.userId })
+      .sort({ createdAt: -1 })
+      .select("role experience mode finalScore status createdAt");
+
+    return res.status(200).json(interviews);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Failed to get interviews: ${error.message}` });
+  }
+};
+
+
+
