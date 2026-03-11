@@ -4,6 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import {
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Area,
+} from "recharts";
 
 function Step3Report({ report }) {
   if (!report) {
@@ -136,7 +145,74 @@ function Step3Report({ report }) {
             </div>
           </motion.div>
         </div>
-        <div></div>
+        <div className="lg:col-span-2 space-y-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8"
+          >
+            <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-4 sm:mb-6">
+              Performance Trend Across Questions
+            </h3>
+            <div className="h-64 sm:h-72">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={questionScoreData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis domain={[0, 10]} />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="score"
+                    stroke="#22c55e"
+                    fill="#bbf7d0"
+                    strokeWidth={3}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8"
+          >
+            <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-6">
+              Question Breakdown
+            </h3>
+            <div className="space-y-6">
+              {questionWiseScore.map((q, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-200"
+                >
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
+                    <div>
+                      <p className="text-xs text-gray-400">Question {i + 1}</p>
+                      <p className="font-semibold text-gray-800 text-sm sm:text-base leading-relaxed">
+                        {q.question || "Question not available"}
+                      </p>
+                    </div>
+                    <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full font-bold text-xs sm:text-sm w-fit">
+                      {q.score ?? 0}/10
+                    </div>
+                  </div>
+
+                  <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+                    <p className="text-xs text-green-600 font-semibold mb-1">
+                      AI Feedback
+                    </p>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      {q.feedback && q.feedback.trim() !== ""
+                        ? q.feedback
+                        : "No feedback available for this question."}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
