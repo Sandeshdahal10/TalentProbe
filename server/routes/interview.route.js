@@ -1,3 +1,7 @@
+/**
+ * Interview routes
+ * Routes for interview operations: resume analysis, question generation, answers, reports.
+ */
 import express from "express";
 import isAuth from "../middlewares/isAuth.js";
 import { upload } from "../middlewares/multer.js";

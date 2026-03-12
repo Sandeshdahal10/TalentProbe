@@ -1,3 +1,8 @@
+/**
+ * Server entrypoint
+ * Sets up the Express application, middleware, and API routes.
+ * Starts the HTTP server and initializes the database connection.
+ */
 import express from "express";
 import dotenv from "dotenv";
 import connectDb from "./config/connectDb.js";

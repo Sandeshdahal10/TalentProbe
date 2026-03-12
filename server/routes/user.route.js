@@ -1,3 +1,7 @@
+/**
+ * User routes
+ * Routes for user-related endpoints (current user retrieval).
+ */
 import express from "express";
 import isAuth from "../middlewares/isAuth.js";
 import { getCurrentUser } from "../controllers/user.controller.js";

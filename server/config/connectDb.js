@@ -1,3 +1,7 @@
+/**
+ * connectDb
+ * Connects to MongoDB using Mongoose. Logs connection status.
+ */
 import mongoose from "mongoose";
 
 const connectDb = async () => {

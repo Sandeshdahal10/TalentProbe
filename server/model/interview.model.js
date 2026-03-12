@@ -1,3 +1,7 @@
+    /**
+     * Interview model
+     * Defines schema for interview documents including nested question schema.
+     */
     import mongoose from 'mongoose';
 
 

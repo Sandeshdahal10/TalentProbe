@@ -1,3 +1,7 @@
+/**
+ * Token utility
+ * Generates a JWT for a given user ID using the configured secret.
+ */
 import jwt from "jsonwebtoken";
 const generateToken = async (userId) => {
   try {

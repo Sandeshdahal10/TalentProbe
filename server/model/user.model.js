@@ -1,3 +1,7 @@
+/**
+ * User model
+ * Mongoose schema for Users with name, email and credits.
+ */
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -12,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     credits: {
         type: Number,
-        default: 1000000
+        default: 100
     }
 },{timestamps: true});
 

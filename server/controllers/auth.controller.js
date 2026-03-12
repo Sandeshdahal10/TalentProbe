@@ -1,11 +1,9 @@
-//frontend data
-//response data from google auth such as email, name
-//create user
-//store token into cookies
-//store user id into token
-//check user based on token
-//if user exist, return user data
-//if user not exist, create new user and return user data
+/**
+ * Auth Controller
+ * Handlers for authentication-related endpoints (Google auth and logout).
+ * - `googleAuth`: creates/returns user and sets auth cookie
+ * - `logOut`: clears the auth cookie
+ */
 import generateToken from "../config/token.js";
 import User from "../model/user.model.js";
 export const googleAuth = async (req, res) => {

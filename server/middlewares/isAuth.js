@@ -1,3 +1,7 @@
+/**
+ * isAuth middleware
+ * Verifies JWT stored in cookies and attaches `req.userId` for authenticated requests.
+ */
 import jwt from "jsonwebtoken";
 const isAuth = async (req, res, next) => {
   try {

@@ -1,3 +1,7 @@
+/**
+ * OpenRouter service
+ * Helper to send chat messages to the OpenRouter API and return the assistant response.
+ */
 import axios from "axios";
 
 export const askAi = async (messages) => {

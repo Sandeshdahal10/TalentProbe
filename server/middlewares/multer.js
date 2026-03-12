@@ -1,3 +1,7 @@
+/**
+ * Multer configuration
+ * Sets up disk storage and filename strategy for handling file uploads.
+ */
 import multer from 'multer'
 
 const storage = multer.diskStorage({

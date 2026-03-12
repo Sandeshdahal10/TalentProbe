@@ -1,3 +1,7 @@
+/**
+ * User Controller
+ * Handlers for user-related endpoints such as retrieving the current user.
+ */
 import User from "../model/user.model.js";
 
 export const getCurrentUser = async (req, res) => {

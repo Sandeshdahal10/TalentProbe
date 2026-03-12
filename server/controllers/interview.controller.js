@@ -1,3 +1,8 @@
+/**
+ * Interview Controller
+ * Contains handlers for resume analysis, question generation, answer submission,
+ * interview lifecycle management, and report retrieval.
+ */
 import fs from "fs";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { askAi } from "../services/openRouter.service.js";
