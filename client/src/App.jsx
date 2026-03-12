@@ -5,7 +5,8 @@ import Auth from './pages/Auth.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { setUserData } from './redux/userSlice.js'
+import { setUserData, setChecked } from './redux/userSlice.js'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 import InterviewPage from './pages/InterviewPage.jsx'
 import InterviewHistory from './pages/InterviewHistory.jsx'
 import Pricing from './pages/Pricing.jsx'
@@ -22,9 +23,11 @@ function App() {
           withCredentials: true
         })
         dispatch(setUserData(result.data));
+        dispatch(setChecked(true));
       } catch (error) {
         console.log(error);
         dispatch(setUserData(null));
+        dispatch(setChecked(true));
       }
     }
     getUser();
@@ -33,10 +36,10 @@ function App() {
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/auth' element={<Auth/>} />
-      <Route path='/interview' element={<InterviewPage/>} />
-      <Route path='/history' element={<InterviewHistory/>} />
+      <Route path='/interview' element={<ProtectedRoute><InterviewPage/></ProtectedRoute>} />
+      <Route path='/history' element={<ProtectedRoute><InterviewHistory/></ProtectedRoute>} />
       <Route path='/pricing' element={<Pricing/>} />
-      <Route path='/report/:id' element={<InterviewReport/>} />
+      <Route path='/report/:id' element={<ProtectedRoute><InterviewReport/></ProtectedRoute>} />
     </Routes>
   )
 }
