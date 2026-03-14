@@ -33,6 +33,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
+app.options("*", cors()); // enable pre-flight for all routes
 app.use(express.json());
 app.use(cookieParser());
 
