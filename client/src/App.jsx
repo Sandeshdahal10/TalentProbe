@@ -12,7 +12,7 @@ import InterviewHistory from './pages/InterviewHistory.jsx'
 import Pricing from './pages/Pricing.jsx'
 import InterviewReport from './pages/InterviewReport.jsx'
 
-export const ServerUrl = "https://talentprobe-peach.vercel.app/";
+export const ServerUrl = "https://talentprobe.onrender.com";
 function App() {
 
   const dispatch = useDispatch();
