@@ -15,9 +15,23 @@ import interviewRouter from "./routes/interview.route.js";
 dotenv.config();
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:3000",                  // local dev
+  "https://talentprobe-peach.vercel.app/",       // your deployed frontend URL
+];
+
 app.use(cors({
-  origin:"http://localhost:5173",
-  credentials:true
+  origin: (origin, callback) => {
+    // allow requests with no origin (mobile apps, curl, postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,                        // needed if using cookies/sessions
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json());
 app.use(cookieParser());
