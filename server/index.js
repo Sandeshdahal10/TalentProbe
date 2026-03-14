@@ -17,7 +17,7 @@ dotenv.config();
 const app = express();
 const allowedOrigins = [
   "http://localhost:3000",                  // local dev
-  "https://talentprobe-peach.vercel.app/",       // your deployed frontend URL
+  "talentprobe-peach.vercel.app",       // your deployed frontend URL
 ];
 
 app.use(cors({
