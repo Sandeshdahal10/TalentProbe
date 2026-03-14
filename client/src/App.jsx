@@ -12,7 +12,7 @@ import InterviewHistory from './pages/InterviewHistory.jsx'
 import Pricing from './pages/Pricing.jsx'
 import InterviewReport from './pages/InterviewReport.jsx'
 
-export const ServerUrl = "https://talentprobe.onrender.com";
+export const ServerUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 function App() {
 
   const dispatch = useDispatch();

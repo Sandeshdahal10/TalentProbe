@@ -16,24 +16,38 @@ dotenv.config();
 
 const app = express();
 const allowedOrigins = [
+  "http://localhost:5173",
   "http://localhost:3000",                  // local dev
-  "talentprobe-peach.vercel.app",       // your deployed frontend URL
+  "https://talentprobe-peach.vercel.app",       // your deployed frontend URL
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
-    // allow requests with no origin (mobile apps, curl, postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,                        // needed if using cookies/sessions
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],  //  add OPTIONS
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
-app.options("*", cors()); // enable pre-flight for all routes
+};
+
+//  cors and preflight must be BEFORE all routes and body parsers
+app.use(cors(corsOptions));
+
+//  manual preflight handler instead of app.options("*", cors())
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+    return res.sendStatus(204);
+  }
+  next();
+});
 app.use(express.json());
 app.use(cookieParser());
 
